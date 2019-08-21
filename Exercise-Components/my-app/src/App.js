@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import Street from './Street/Street.jsx'
 import House from './House/House'
+import HouseDetails from './HouseDetailsSection/HouseDetails'
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -14,6 +16,9 @@ class App extends React.Component {
   }
   getSelectedStreets() {
     return this.state.streets[this.state.selectedStreetIdx].homes
+  }
+  getSelectedHoude(){
+    return this.state.streets[this.state.selectedStreetIdx].homes[this.state.selectedHouseInd]
   }
   render() {
     if (!this.state.hasFetched) {
@@ -33,6 +38,10 @@ class App extends React.Component {
           } id={idx} imageUrl={home.imageUrl} price={home.price} key={idx} />)
         })}
       </div>
+      <div>
+      {this.state.streets.length>0?<HouseDetails type={this.getSelectedHoude().type} imageUrl={this.getSelectedHoude().imageUrl} key={this.state.selectedHouseInd}/>:null}
+      </div>
+      
     </div>
 
 
