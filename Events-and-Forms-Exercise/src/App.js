@@ -19,6 +19,15 @@ class App extends Component {
 
     registerUser(user) {
         // TODO: register a user and login
+        fetch('http://localhost:9999/auth/signup', {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(user), // data can be `string` or {object}!
+            headers:{
+              'Content-Type': 'application/json'
+            }
+          }).then(res => res.json())
+          .then(response => console.log('Success:', JSON.stringify(response)))
+          .catch(error => console.error('Error:', error));        
     }
 
     loginUser(user) {
