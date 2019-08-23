@@ -26,8 +26,17 @@ class App extends Component {
               'Content-Type': 'application/json'
             }
           }).then(res => res.json())
-          .then(response => console.log('Success:', JSON.stringify(response)))
-          .catch(error => console.error('Error:', error));        
+          .then(body => {
+              if(body.errors){
+                    console.log(body.errors)
+              }
+              else{
+                localStorage.setItem('username',body.username.toString())
+                localStorage.setItem('userId',body.userId.toString())
+                this.setState({user:body.username})
+              }
+          })
+                
     }
 
     loginUser(user) {
