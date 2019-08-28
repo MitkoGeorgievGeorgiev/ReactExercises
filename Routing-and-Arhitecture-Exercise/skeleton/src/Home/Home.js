@@ -13,15 +13,13 @@ class Home extends Component {
     return (
       <div className="Home">
         <h1>All movies</h1>
-        <ul class="movies">
-          <li class="movie">
-            <h2>Titanic (1997)</h2><img
-              src="" />
+        <ul className="movies">
+          {this.state.movies.map(movie=>(
+            <li className="movie" key={movie._id}>
+            <h2>{movie.title}</h2><img
+              src={movie.poster} />
           </li>
-          <li class="movie">
-            <h2>Avatar (2009)</h2><img
-              src="" />
-          </li>
+          ))}
         </ul>
       </div>
     );
