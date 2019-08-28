@@ -18,6 +18,10 @@ class Home extends Component {
             <li className="movie" key={movie._id}>
             <h2>{movie.title}</h2><img
               src={movie.poster} />
+              <span>
+                <button >View Trailer</button>
+                <button>View Story Line</button>
+              </span>
           </li>
           ))}
         </ul>

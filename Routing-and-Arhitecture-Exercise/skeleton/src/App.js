@@ -15,9 +15,10 @@ class App extends Component {
       isAdmin: false,
       loggedIn: false
     }
+    
   }
 
-  authSubmit(data, signIn) {
+  authSubmit=(data, signIn)=> {
     fetch('http://localhost:9999/auth/sign' + (signIn ? 'in' : 'up'), {
       method: 'POST',
       body: JSON.stringify(data),
@@ -26,7 +27,15 @@ class App extends Component {
       }
     }).then(res => res.json())
       .then(body => {
+        
         localStorage.setItem('username', body.username)
+        localStorage.setItem('token', body.token)
+        if(body.isAdmin){
+          this.setState({
+            isAdmin:true,
+            
+          })
+        }
         this.setState({
           loggedIn:true
         })
@@ -34,7 +43,7 @@ class App extends Component {
       )
 
   }
-  createMovie(movie) {
+  createMovie=(movie) => {
     fetch('http://localhost:9999/feed/movie/create', {
       method: 'POST',
       body: JSON.stringify(movie),
@@ -45,15 +54,24 @@ class App extends Component {
       .then(body => console.log(body))
       .catch(err=>console.log(err))
   }
+
+  logout=()=>{
+    localStorage.clear()
+    this.setState({
+      isAdmin:false,
+      loggedIn:false
+    })
+  }
+
   render() {
     return (
       <div className="App">
 
         <Router>
           <Fragment>
-            <Header isAdmin={this.state.isAdmin} loggedIn={this.state.loggedIn} />
+            <Header isAdmin={this.state.isAdmin} loggedIn={this.state.loggedIn} logout={this.logout}/>
             <Switch>
-              <Route path="/" component={Home} exact />
+              <Route path="/" render={()=><Home loggedIn={this.state.loggedIn}/>} exact />
               <Route path="/register" render={() => <Register authSubmit={this.authSubmit} />} />
               <Route path="/login" render={() => <Login authSubmit={this.authSubmit} />} exact />
               <Route path="/create" render={() => <Create createMovie={this.createMovie} />} />
