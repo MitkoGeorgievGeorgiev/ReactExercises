@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import './Login.css';
 
 class Login extends Component {
@@ -19,7 +20,11 @@ class Login extends Component {
     })
   }
   render() {
-    return (
+    // {localStorage.username ? <Redirect to="/"/> : null}
+    {if(localStorage.username){
+      return <Redirect to="/"/>
+    }}
+    return(
       <div className="Login">
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>

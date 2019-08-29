@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch,Redirect } from 'react-router-dom'
 import Home from './Home/Home';
 import Register from './Register/Register';
 import Login from './Login/Login';
@@ -63,6 +63,7 @@ class App extends Component {
       isAdmin:false,
       loggedIn:false
     })
+    
   }
   componentDidMount() {
     fetch('http://localhost:9999/feed/movies')
@@ -86,6 +87,8 @@ class App extends Component {
               <Route path="/" render={()=><Home loggedIn={this.state.loggedIn} movies={this.state.movies}/>} exact />
               <Route path="/register" render={() => <Register authSubmit={this.authSubmit} />} />
               <Route path="/login" render={() => <Login authSubmit={this.authSubmit} />} exact />
+              <Route path='/logout' render={() => <Redirect to='/'/>}  />
+
               <Route path="/create" render={() => <Create createMovie={this.createMovie} />} />
               <Route path="/trailer" render={() => <Trailer />} />
 

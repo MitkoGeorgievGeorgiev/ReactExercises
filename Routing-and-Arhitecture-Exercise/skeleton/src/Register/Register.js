@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom'
 import './Register.css';
 
 class Register extends Component {
@@ -22,6 +23,9 @@ class Register extends Component {
     this.props.authSubmit(this.state,)
   }
   render() {
+    {if(localStorage.username){
+      return <Redirect to="/"/>
+    }}
     return (
       <div className="Register">
         <h1>Register</h1>
